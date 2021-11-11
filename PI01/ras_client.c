@@ -1,4 +1,4 @@
-#include "doc.h"
+ï»¿#include "doc.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -48,13 +48,13 @@ int main(int argc, char *argv[])
 	
 	while(1) 
 	{
-		// ¼­¹ö¿¡°Ô PID °ªÀ» Àü´ŞÇÑ´Ù.
+		// ì„œë²„ì—ê²Œ PID ê°’ì„ ì „ë‹¬í•œë‹¤.
 
 
-		//¼­¹ö¿¡°Ô ½Ã°£À» ÁØ´Ù.
+		//ì„œë²„ì—ê²Œ ì‹œê°„ì„ ì¤€ë‹¤.
 		usleep(400000);
 
-		// ¼­¹ö¿¡°Ô LED°ªÀ» ¹Ş´Â´Ù.
+		// ì„œë²„ì—ê²Œ LEDê°’ì„ ë°›ëŠ”ë‹¤.
 		str_len=read(sock, message, BUF_SIZE-1);
 		message[str_len]=0;
 		led = atoi(message);

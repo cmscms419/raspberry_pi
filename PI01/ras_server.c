@@ -1,4 +1,4 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -51,11 +51,11 @@ int main(int argc, char *argv[])
 
 	while(1) // multi client
 	{
-		//client·Î ºÎÅÍ °ªÀ» ¹Ş¾Æ¿Â´Ù.
+		//clientë¡œ ë¶€í„° ê°’ì„ ë°›ì•„ì˜¨ë‹¤.
 		
 
 
-		//LED°ªÀ» ³Ñ°ÜÁØ´Ù.
+		//LEDê°’ì„ ë„˜ê²¨ì¤€ë‹¤.
 		write(clnt_sock, message, BUF_SIZE);
 	}
 
