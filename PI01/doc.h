@@ -1,36 +1,40 @@
-#include <wiringPi.h>
+ï»¿#include <wiringPi.h>
 
 /*
-#define ±ÔÄ¢
-	 123456789
-	 123 : ÇÏµå¿ş¾î ¹øÈ£ÀÌ´Ù.
-	 456 : Wiring Pi ÇÉ ¹øÈ£ÀÌ´Ù.
-	 789 : ½ÅÈ£¿¡ ´ëÇÑ Á¤º¸ÀÌ´Ù.
+#define ê·œì¹™
+	í•˜ë“œì›¨ì–´ ë²ˆí˜¸ë¥¼ ë¶€ë¶„ì€ ì•ì—ì„œ ë¶€í„° ë²ˆí˜¸ë¥¼ ì ëŠ”ë‹¤.
+	ë‹¤ë¥¸ ê²ƒì€ ë’¤ì—ì„œ ë¶€í„° ì ëŠ”ë‹¤.
+	
+	 123 456 789
+	 123 : í•˜ë“œì›¨ì–´ ë²ˆí˜¸ì´ë‹¤.
+	 456 : Wiring Pi í•€ ë²ˆí˜¸ì´ë‹¤.
+	 789 : ì‹ í˜¸ì— ëŒ€í•œ ì •ë³´ì´ë‹¤.
 		001 : on
 		000 : off
 		011 : on_off exchange
 
 */
 
-// cmscms419°¡ Á¤ÇÑ ±ÔÄ¢
-#define RED_ON 004007001
-#define RED_OFF 004007000
-#define GREEN_ON 005021001
-#define GREEN_OFF 005021000
-#define BLUE_ON 006022001
-#defube BLUE_OFF 006022000
-#define PIR_ON 027002001
-#define PIR_OFF 027002000
+// cmscms419ê°€ ì •í•œ ê·œì¹™
+#define RED_ON 400007001
+#define RED_OFF 400007000
+#define GREEN_ON 500021001
+#define GREEN_OFF 500021000
+#define BLUE_ON 600022001
+#defube BLUE_OFF 600022000
 
-//Á¤±Ô ±ÔÄ¢
+#define PIR_ON 270002001
+#define PIR_OFF 270002000
+
+//ì •ê·œ ê·œì¹™
 #define PIR_D 2
 
 #define LED_RED 7
 #define LED_GREEN 21
 #define LED_BLUE 22
 
-//Æ¯¼öÇÑ »óÈ²¿¡¼­ ¾²´Â ±ÔÄ¢
+//íŠ¹ìˆ˜í•œ ìƒí™©ì—ì„œ ì“°ëŠ” ê·œì¹™
 
-//EXCHANGEÀÇ ±ÔÄ¢
-//2°³ÀÇ RED wiring Pi ¹øÈ£¸¦ Àû´Â´Ù. µÚ¿¡´Â ½ÅÈ£¿¡ ´ëÇÑ Á¤º¸¸¦ Àû´Â´Ù.
-#define GB_EXCHANGE 005006011
+//EXCHANGEì˜ ê·œì¹™
+//2ê°œì˜ RED wiring Pi ë²ˆí˜¸ë¥¼ ì ëŠ”ë‹¤. ë’¤ì—ëŠ” ì‹ í˜¸ì— ëŒ€í•œ ì •ë³´ë¥¼ ì ëŠ”ë‹¤.
+#define GB_EXCHANGE 500006011
