@@ -5,26 +5,26 @@
 	하드웨어 번호를 부분은 앞에서 부터 번호를 적는다.
 	다른 것은 뒤에서 부터 적는다.
 	
-	 123 456 789
-	 123 : 하드웨어 번호이다.
-	 456 : Wiring Pi 핀 번호이다.
-	 789 : 신호에 대한 정보이다.
-		001 : on
-		000 : off
-		011 : on_off exchange
+	 12 34 56
+	 12 : 하드웨어 번호이다.
+	 34 : Wiring Pi 핀 번호이다.
+	 56 : 신호에 대한 정보이다.
+		01 : on
+		00 : off
+		11 : on_off exchange
 
 */
 
 // cmscms419가 정한 규칙
-#define RED_ON 400007001
-#define RED_OFF 400007000
-#define GREEN_ON 500021001
-#define GREEN_OFF 500021000
-#define BLUE_ON 600022001
-#defube BLUE_OFF 600022000
+#define RED_ON 40701
+#define RED_OFF 40700
+#define GREEN_ON 52101
+#define GREEN_OFF 52100
+#define BLUE_ON 62201
+#defube BLUE_OFF 62200
 
-#define PIR_ON 270002001
-#define PIR_OFF 270002000
+#define PIR_ON 270201
+#define PIR_OFF 270200
 
 //정규 규칙
 #define PIR_D 2
@@ -37,4 +37,4 @@
 
 //EXCHANGE의 규칙
 //2개의 RED wiring Pi 번호를 적는다. 뒤에는 신호에 대한 정보를 적는다.
-#define GB_EXCHANGE 500006011
+#define GB_EXCHANGE 5611

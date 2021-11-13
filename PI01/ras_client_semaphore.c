@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <pthread.h>
+#include <semaphore.h>
 #include <time.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
@@ -12,7 +14,13 @@ void error_handling(char* message);
 void led_setting();
 void pir_setting();
 
+void* thread_snd(void* arg);
+void* thread_rcv(void* arg);
+
 char pir_flag = 0;
+
+sem_t bin_sem;
+int number = 0;
 
 void PIR_interrupt()
 {
@@ -22,10 +30,22 @@ void PIR_interrupt()
 int main(int argc, char* argv[])
 {
 	int sock;
-	char message[BUF_SIZE];
 	int led = 0;
 	int str_len;
+	int state = 0;
+
+	char message[BUF_SIZE];
 	struct sockaddr_in serv_adr;
+
+	void* thread_result;
+	pthread_t t1, t2;
+
+	state = sem_init(&bin_sem, 0, 0);
+	if (state != 0) 
+	{ 
+		puts("세마포어 초기화 실패");    
+		exit(1);
+	}
 
 	if (wiringPiSetup() == -1)
 		return 1;
@@ -56,7 +76,7 @@ int main(int argc, char* argv[])
 	while (1)
 	{
 		// 서버에게 PID 값을 전달한다.
-		if (pir_flag == 1) 
+		if (pir_flag == 1)
 		{
 			printf("PIR Detected !! \n");
 			pir_flag = 0;
@@ -66,7 +86,7 @@ int main(int argc, char* argv[])
 		}
 		else {
 			printf("PIR Not detect !! \n");
-			                                                                                       
+
 			sprintf(message, "%d", PIR_OFF);
 			write(sock, message, BUF_SIZE)
 		}
