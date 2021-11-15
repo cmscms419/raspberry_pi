@@ -14,8 +14,8 @@ void error_handling(char* message);
 void led_setting();
 void pir_setting();
 
-void* thread_snd(void* arg);
-void* thread_rcv(void* arg);
+void* pirOn(void* arg);
+void* pirOff(void* arg);
 
 char pir_flag = 0;
 
@@ -40,6 +40,7 @@ int main(int argc, char* argv[])
 	void* thread_result;
 	pthread_t t1, t2;
 
+	// bin_sem은 0으로 설정한다.
 	state = sem_init(&bin_sem, 0, 0);
 	if (state != 0) 
 	{ 
@@ -73,6 +74,9 @@ int main(int argc, char* argv[])
 	else
 		puts("Connected...........");
 
+	pthread_create(&t1, NULL, pirOn, NULL);
+	pthread_create(&t2, NULL, pirOff, NULL);
+
 	while (1)
 	{
 		// 서버에게 PID 값을 전달한다.
@@ -101,28 +105,21 @@ int main(int argc, char* argv[])
 		switch (led)
 		{
 		case GB_EXCHANGE:
-			digitalWrite(LED_GREEN, 1);
-			digitalWrite(LED_BLUE, 0);
-
-			digitalWrite(LED_GREEN, 0);
-			digitalWrite(LED_BLUE, 1);
-
 			break;
 
 		case RED_ON:
-			digitalWrite(LED_GREEN, 0);
-			digitalWrite(LED_BLUE, 0);
-			digitalWrite(LED_RED, 1);
-
+			number = 1;
 			break;
 
 		default:
+			sem_destroy(&bin_sem);
 			close(sock);
 			return 0;
 		}
 
 	}
 
+	sem_destroy(&bin_sem);
 	close(sock);
 	return 0;
 }
@@ -149,4 +146,33 @@ void pir_setting()
 {
 	pinMode(PIR_D, INPUT);
 	wiringPiISR(PIR_D, INT_EDGE_RISING, &PIR_interrupt);
+}
+
+void* pirOn(void* arg)
+{
+	// 다른 쓰레드가 작동 중일 때는 작동하지 않는다.
+	while (number != 0);
+
+	sem_post(&bin_sem);
+	switch (number)
+	{
+	case 1:
+		digitalWrite(LED_GREEN, 1);
+		digitalWrite(LED_BLUE, 0);
+
+		digitalWrite(LED_GREEN, 0);
+		digitalWrite(LED_BLUE, 1);
+
+	default:
+		break;
+	}
+}
+
+void* pirOff(void* arg)
+{
+	sem_wait(&bin_sem);
+
+	digitalWrite(LED_GREEN, 0);
+	digitalWrite(LED_BLUE, 0);
+	digitalWrite(LED_RED, 1);
 }

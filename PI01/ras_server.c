@@ -60,16 +60,16 @@ int main(int argc, char* argv[])
 
 		switch (signal)
 		{
-		case PIR_ON:
-
+		case PIR_OFF:
+			// 감지가 되지 않았다.
 			sprintf(message, "%d", GB_EXCHANGE);
 
 			//LED값을 넘겨준다.
 			write(clnt_sock, message, BUF_SIZE);
 			break;
 
-		case PIR_OFF:
-
+		case PIR_ON:
+			// 감지가 되었다.
 			sprintf(message, "%d", RED_ON);
 
 			//LED값을 넘겨준다.
