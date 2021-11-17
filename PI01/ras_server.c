@@ -53,36 +53,14 @@ int main(int argc, char* argv[])
 	while (1) // multi client
 	{
 		//client로 부터 값을 받아온다.
-		str_len = read(sock, message, BUF_SIZE - 1);
-		message[str_len] = 0;
-		signal = atoi(message);
-
-
-		switch (signal)
+		if (read(sock, message, BUF_SIZE - 1) == -1)
 		{
-		case PIR_OFF:
-			// 감지가 되지 않았다.
-			sprintf(message, "%d", GB_EXCHANGE);
-
-			//LED값을 넘겨준다.
-			write(clnt_sock, message, BUF_SIZE);
-			break;
-
-		case PIR_ON:
-			// 감지가 되었다.
-			sprintf(message, "%d", RED_ON);
-
-			//LED값을 넘겨준다.
-			write(clnt_sock, message, BUF_SIZE);
-			break;
-
-		default:
-			close(serv_sock);
-			return 0;
+			error_handling("read error!!!\n");
 		}
-	}
+		printf("IOT message : %s", message);
 
 	close(serv_sock);
+	close(clnt_sock);
 	return 0;
 }
 

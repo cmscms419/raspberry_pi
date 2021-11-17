@@ -9,8 +9,6 @@
 #define BUF_SIZE 100
 
 void error_handling(char* message);
-void led_setting();
-void pir_setting();
 
 char pir_flag = 0;
 
@@ -61,46 +59,34 @@ int main(int argc, char* argv[])
 			printf("PIR Detected !! \n");
 			pir_flag = 0;
 
-			sprintf(message, "%d", PIR_ON);
-			write(sock, message, BUF_SIZE)
+			strcpy(message, "PIR ON");
+			write(sock, message, BUF_SIZE);
+			led = LED_RED;
 		}
 		else {
 			printf("PIR Not detect !! \n");
 			                                                                                       
-			sprintf(message, "%d", PIR_OFF);
-			write(sock, message, BUF_SIZE)
+			strcpy(message, "PIR OFF");
+			write(sock, message, BUF_SIZE);
+			led = GB_EXCHANGE;
 		}
 
 		// usleep(50000); // 0.05
 
-		// 서버에게 LED값을 받는다.
-		str_len = read(sock, message, BUF_SIZE - 1);
-		message[str_len] = 0;
-		led = atoi(message);
-
 		switch (led)
 		{
 		case GB_EXCHANGE:
-			digitalWrite(LED_GREEN, 1);
-			digitalWrite(LED_BLUE, 0);
-
-			digitalWrite(LED_GREEN, 0);
-			digitalWrite(LED_BLUE, 1);
-
+			pir_OnLED();
 			break;
 
 		case RED_ON:
-			digitalWrite(LED_GREEN, 0);
-			digitalWrite(LED_BLUE, 0);
-			digitalWrite(LED_RED, 1);
-
+			pir_OffLED();
 			break;
 
 		default:
 			close(sock);
 			return 0;
 		}
-
 	}
 
 	close(sock);
@@ -112,21 +98,4 @@ void error_handling(char* message)
 	fputs(message, stderr);
 	fputc('\n', stderr);
 	exit(1);
-}
-
-void led_setting()
-{
-	pinMode(LED_RED, OUTPUT);
-	pinMode(LED_GREEN, OUTPUT);
-	pinMode(LED_BLUE, OUTPUT);
-
-	digitalWrite(LED_RED, 0);
-	digitalWrite(LED_GREEN, 0);
-	digitalWrite(LED_BLUE, 0);
-}
-
-void pir_setting()
-{
-	pinMode(PIR_D, INPUT);
-	wiringPiISR(PIR_D, INT_EDGE_RISING, &PIR_interrupt);
 }
