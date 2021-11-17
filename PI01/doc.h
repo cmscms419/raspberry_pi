@@ -21,7 +21,7 @@
 #define GREEN_ON 52101
 #define GREEN_OFF 52100
 #define BLUE_ON 62201
-#defube BLUE_OFF 62200
+#define BLUE_OFF 62200
 
 #define PIR_ON 270201
 #define PIR_OFF 270200
