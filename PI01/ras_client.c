@@ -10,13 +10,6 @@
 
 void error_handling(char* message);
 
-char pir_flag = 0;
-
-void PIR_interrupt()
-{
-	pir_flag = 1;
-}
-
 int main(int argc, char* argv[])
 {
 	int sock;
@@ -71,7 +64,7 @@ int main(int argc, char* argv[])
 			led = GB_EXCHANGE;
 		}
 
-		// usleep(50000); // 0.05
+		usleep(50000); // 0.05
 
 		switch (led)
 		{
@@ -82,13 +75,8 @@ int main(int argc, char* argv[])
 		case RED_ON:
 			pir_OffLED();
 			break;
-
-		default:
-			close(sock);
-			return 0;
 		}
 	}
-
 	close(sock);
 	return 0;
 }
@@ -99,44 +87,3 @@ void error_handling(char* message)
 	fputc('\n', stderr);
 	exit(1);
 }
-
-// 만약, doc.c가 작동하지 않으면 이 주석을 풀면 됩니다.
-/*
-//  LED Setting
-void led_setting()
-{
-	pinMode(LED_RED, OUTPUT);
-	pinMode(LED_GREEN, OUTPUT);
-	pinMode(LED_BLUE, OUTPUT);
-
-	digitalWrite(LED_RED, 0);
-	digitalWrite(LED_GREEN, 0);
-	digitalWrite(LED_BLUE, 0);
-}
-
-// PIR Setting
-void pir_setting()
-{
-	pinMode(PIR_D, INPUT);
-	wiringPiISR(PIR_D, INT_EDGE_RISING, &PIR_interrupt);
-}
-
-// PIR 작동할 떄 사용하는 모듈
-void pir_OnLED()
-{
-	digitalWrite(LED_GREEN, 1);
-	digitalWrite(LED_BLUE, 0);
-
-	digitalWrite(LED_GREEN, 0);
-	digitalWrite(LED_BLUE, 1);
-
-}
-
-// PIR 작동할 떄 사용하는 모듈
-void pir_OffLED()
-{
-	digitalWrite(LED_GREEN, 0);
-	digitalWrite(LED_BLUE, 0);
-	digitalWrite(LED_RED, 1);
-}
-*/
