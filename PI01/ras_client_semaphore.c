@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
 	state = sem_init(&bin_sem, 0, 0);
 	if (state != 0) 
 	{ 
-		puts("세마포어 초기화 실패");    
+		puts("세마포어 초기화 실패");
 		exit(1);
 	}
 

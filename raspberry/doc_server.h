@@ -1,7 +1,4 @@
-﻿#include <wiringPi.h>
-#define CRT_SECURE_NO_WARNINGS
-
-/*
+﻿/*
 #define 규칙
 	하드웨어 번호를 부분은 앞에서 부터 번호를 적는다.
 	다른 것은 뒤에서 부터 적는다.
