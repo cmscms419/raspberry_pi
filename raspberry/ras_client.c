@@ -59,19 +59,17 @@ int main(int argc, char* argv[])
 			printf("PIR Detected !! \n");
 			pir_flag = 0;
 
-			strcpy(message, "PIR ON");
+			sprintf(message,"%d", PIR_ON)
 			write(sock, message, BUF_SIZE);
-			led = LED_RED;
 		}
 		else {
 			printf("PIR Not detect !! \n");
 			                                                                                       
-			strcpy(message, "PIR OFF");
+			sprintf(message, "%d", PIR_OFF)
 			write(sock, message, BUF_SIZE);
-			led = GB_EXCHANGE;
 		}
 
-		// usleep(50000); // 0.05
+		usleep(50000); // 0.05
 
 		switch (led)
 		{
@@ -82,10 +80,6 @@ int main(int argc, char* argv[])
 		case RED_ON:
 			pir_OffLED();
 			break;
-
-		default:
-			close(sock);
-			return 0;
 		}
 	}
 

@@ -1,4 +1,4 @@
-﻿#include "doc.h"
+﻿#include "doc_server.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -50,14 +50,27 @@ int main(int argc, char* argv[])
 	else
 		printf("Connected client %d \n", i + 1);
 
-	while (1) // multi client
+	while (1)
 	{
 		//client로 부터 값을 받아온다.
 		if (read(sock, message, BUF_SIZE - 1) == -1)
 		{
 			error_handling("read error!!!\n");
+			exit(1);
 		}
-		printf("IOT message : %s", message);
+		usleep(500000);
+		// 값을 인식할 수 있게 바꾼다.
+		signal = atoi(message);
+
+		// 여기서 서버가 조종할 수 있다.
+		switch (signal)
+		{
+			case PIR_ON:
+				printf("PID ON !!!!!\n");
+				sprintf(message, "%d", PIR_OFF)
+				write(sock, message, BUF_SIZE - 1)
+		}
+	}
 
 	close(serv_sock);
 	close(clnt_sock);
