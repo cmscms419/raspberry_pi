@@ -40,11 +40,6 @@
 //2개의 RED wiring Pi 번호를 적는다. 뒤에는 신호에 대한 정보를 적는다.
 #define GB_EXCHANGE 5611
 
-// 작동하는 IOT 모듈
-void led_setting();
-void pir_setting();
-void pir_OnLED();
-void pir_OffLED();
 
 //  LED Setting
 void led_setting()

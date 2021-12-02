@@ -57,7 +57,9 @@ int main(int argc, char* argv[])
 		{
 			error_handling("read error!!!\n");
 		}
-		printf("IOT message : %s", message);
+		printf("IOT message : %s\n", message);
+		usleep(500000); // 0.5 second
+	}
 
 	close(serv_sock);
 	close(clnt_sock);
