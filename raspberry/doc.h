@@ -26,7 +26,7 @@
 #define ULTRA_SONIC_ON 202801
 #define ULTRA_SONIC_OFF 202800
 
-#define ON
+#define NOBODY 0
 
 //정규 규칙
 #define PIR_D 2
@@ -38,9 +38,21 @@
 #define trigPin 28
 #define echoPin 29
 
+#define DC_INA 26
+#define DC_INB 23
+#define DC_ENCA 10
+#define DC_ENCB 11
+
 //특수한 상황에서 쓰는 규칙
 
 
 //EXCHANGE의 규칙
 //2개의 RED wiring Pi 번호를 적는다. 뒤에는 신호에 대한 정보를 적는다.
 #define GB_EXCHANGE 5611
+
+char pir_flag = 0;
+
+void PIR_interrupt()
+{
+	pir_flag = 1;
+}

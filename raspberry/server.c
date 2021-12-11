@@ -26,7 +26,7 @@ int main(int argc, char **argv)
   pid_t pid;
   char message[BUFSIZE];
   int signal = 0;
-  
+
   if (argc != 2)
   {
     printf("Usage : %s <port>\n", argv[0]);
@@ -82,24 +82,24 @@ int main(int argc, char **argv)
       while ((str_len = read(clnt_sock, message, BUFSIZE)) != 0)
       {
         signal = atoi(message);
-        sleep(1);
-        
         printf("%d\n", signal);
         switch (signal)
         {
         case PIR_ON:
-          sprintf(message,"%d", ULTRA_SONIC_ON);
+          sprintf(message, "%d", ULTRA_SONIC_ON);
 
-          if(write(clnt_sock,message,BUFSIZE) == -1)
+          if (write(clnt_sock, message, BUFSIZE) == -1)
             error_handling("send error!!!\n");
-          
           break;
         
         default:
+          sprintf(message, "%d", NOBODY);
+          
+          if (write(clnt_sock, message, BUFSIZE) == -1)
+            error_handling("send error!!!\n");
           break;
         }
 
-        write(clnt_sock, message, BUFSIZE);
         printf("%s\n", message);
       }
     }
