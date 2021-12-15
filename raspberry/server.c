@@ -86,10 +86,16 @@ int main(int argc, char **argv)
         switch (signal)
         {
         case PIR_ON:
-          sprintf(message, "%d", ULTRA_SONIC_ON);
 
-          if (write(clnt_sock, message, BUFSIZE) == -1)
-            error_handling("send error!!!\n");
+            printf("Open the door : 1\n");
+            scanf("%d", &yn);
+
+            if (yn == 1)
+            {
+                sprintf(message, "%d", ULTRA_SONIC_ON);
+                if (write(clnt_sock, message, BUFSIZE) == -1)
+                    error_handling("send error!!!\n");
+            }
           break;
         
         default:

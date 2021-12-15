@@ -182,7 +182,7 @@ void ENCB_interrupt(){
 	EN_count++;
 }
 
-void ENCA_interrupt(){
+void ENCA_interrupt() {
 	char ENCB ;
 	
 	if(digitalRead(DC_ENCA)==1) { // A상이 high 일 때

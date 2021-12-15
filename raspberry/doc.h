@@ -40,8 +40,8 @@
 
 #define DC_INA 26
 #define DC_INB 23
-#define DC_ENCA 10
-#define DC_ENCB 11
+#define DC_ENCA 9
+#define DC_ENCB 7
 
 //특수한 상황에서 쓰는 규칙
 
